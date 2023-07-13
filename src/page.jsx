@@ -22,6 +22,7 @@ function Page() {
       if (response === 200) {
         setAttackName(resData.attackName);
         setCheckPoint(resData.checkPoint);
+        isSuccess(resData.success);
       }
     }
   };
