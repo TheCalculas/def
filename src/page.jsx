@@ -9,32 +9,28 @@ function Page() {
   const [checkPoint, setCheckPoint] = useState();
   const fetchData = async () => {
     while (!success) {
-      setTimeout(async () => {
-        
-        
-        const response = await fetch(
-          `http://localhost:5000/defender/checkUpdate`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const resData = await response.json();
-        if (response === 200) {
-          setAttackName(resData.attackName);
-          setCheckPoint(resData.checkPoint);
+      const response = await fetch(
+        `http://localhost:5000/defender/checkUpdate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      
-  }, 2000);
-  
+      );
+      const resData = await response.json();
+      if (response === 200) {
+        setAttackName(resData.attackName);
+        setCheckPoint(resData.checkPoint);
+      }
+    }
+  };
   useEffect(() => {
     if (!success) {
       fetchData();
     }
   }, [success]);
-  return <>{!success ? <Doc /> : <Options />}</>;
+  return <>{success ? <Doc /> : <Options />}</>;
 }
 
 export default Page;
